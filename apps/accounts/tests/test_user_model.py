@@ -38,3 +38,13 @@ def test_email_is_required():
             email="",
             password="StrongPassword123!",
         )
+
+
+@pytest.mark.django_db
+def test_user_string_representation():
+    user = User.objects.create_user(
+        email="john@example.com",
+        password="StrongPassword123!",
+    )
+
+    assert str(user) == "john@example.com"
