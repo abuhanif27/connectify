@@ -5,8 +5,13 @@ name = "pypi"
 
 [packages]
 django = "<5.3,>=5.2"
+django-environ = "*"
 
 [dev-packages]
+black = "*"
+ruff = "*"
+pytest = "*"
+pytest-django = "*"
 
 [requires]
 python_version = "3.14"
