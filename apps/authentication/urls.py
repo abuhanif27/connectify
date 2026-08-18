@@ -1,5 +1,6 @@
 from django.urls import path
 
+from apps.authentication.views.dashboard import DashboardView
 from apps.authentication.views.registration import RegisterView
 
 
@@ -10,5 +11,10 @@ urlpatterns = [
         "register/",
         RegisterView.as_view(),
         name="register",
+    ),
+    path(
+        "dashboard/",
+        DashboardView.as_view(),
+        name="dashboard",
     ),
 ]

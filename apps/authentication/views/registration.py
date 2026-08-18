@@ -1,3 +1,4 @@
+from django.contrib.auth import login
 from django.shortcuts import redirect, render
 from django.views import View
 
@@ -21,14 +22,16 @@ class RegisterView(View):
         form = RegistrationForm(request.POST)
 
         if form.is_valid():
-            register_user(
+            user = register_user(
                 email=form.cleaned_data["email"],
                 password=form.cleaned_data["password"],
                 first_name=form.cleaned_data["first_name"],
                 last_name=form.cleaned_data["last_name"],
             )
 
-            return redirect("authentication:register")
+            login(request, user)
+
+            return redirect("authentication:dashboard")
 
         return render(
             request,

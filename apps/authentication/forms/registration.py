@@ -4,10 +4,13 @@ from apps.accounts.models import User
 
 
 INPUT_CLASSES = (
-    "w-full rounded-lg border border-gray-700 bg-gray-950 "
-    "px-4 py-3 text-white outline-none transition "
-    "placeholder:text-gray-500 "
-    "focus:border-white focus:ring-1 focus:ring-white"
+    "w-full rounded-xl border border-slate-700 "
+    "bg-slate-950 px-4 py-3 text-sm text-white "
+    "outline-none transition "
+    "placeholder:text-slate-600 "
+    "focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 "
+    "[&:-webkit-autofill]:bg-slate-950 "
+    "[&:-webkit-autofill]:text-white"
 )
 
 
