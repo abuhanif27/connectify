@@ -21,8 +21,21 @@ Dashboard | Connectify
                 </span>
             </div>
 
-            <div class="text-sm text-slate-400">
-                {{ request.user.email }}
+            <div class="flex items-center gap-4">
+
+                <span class="hidden text-sm text-slate-400 sm:block">
+                    {{ request.user.email }}
+                </span>
+
+                <form method="post" action="{% url 'authentication:logout' %}">
+                    {% csrf_token %}
+
+                    <button type="submit"
+                        class="rounded-lg border border-slate-700 px-4 py-2 text-sm font-medium text-slate-300 transition hover:border-red-500/50 hover:bg-red-500/10 hover:text-red-400">
+                        Logout
+                    </button>
+                </form>
+
             </div>
 
         </div>

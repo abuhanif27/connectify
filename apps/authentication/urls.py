@@ -3,6 +3,7 @@ from django.urls import path
 from apps.authentication.views.dashboard import DashboardView
 from apps.authentication.views.registration import RegisterView
 from apps.authentication.views.login import LoginView
+from apps.authentication.views.logout import LogoutView
 
 app_name = "authentication"
 
@@ -16,6 +17,11 @@ urlpatterns = [
         "login/",
         LoginView.as_view(),
         name="login",
+    ),
+    path(
+        "logout/",
+        LogoutView.as_view(),
+        name="logout",
     ),
     path(
         "dashboard/",
