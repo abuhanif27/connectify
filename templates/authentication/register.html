@@ -1,0 +1,256 @@
+{% extends "base.html" %}
+
+{% block title %}Create Account | Connectify{% endblock %}
+
+{% block content %}
+
+<div class="min-h-screen bg-slate-950">
+
+    <div class="mx-auto flex min-h-screen max-w-7xl items-center px-6 py-12 lg:px-8">
+
+        <div
+            class="grid w-full overflow-hidden rounded-3xl border border-slate-800 bg-slate-900/80 shadow-2xl lg:grid-cols-2">
+
+            <!-- Left: Brand / Product -->
+            <div class="relative hidden overflow-hidden p-12 lg:flex lg:flex-col lg:justify-between">
+
+                <!-- Decorative background -->
+                <div class="absolute inset-0 bg-gradient-to-br from-indigo-600/20 via-slate-900 to-cyan-500/10"></div>
+
+                <div class="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-indigo-500/20 blur-3xl"></div>
+                <div class="absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-cyan-500/10 blur-3xl"></div>
+
+                <div class="relative">
+
+                    <div class="mb-10 flex items-center gap-3">
+                        <div
+                            class="flex h-11 w-11 items-center justify-center rounded-xl bg-indigo-500 text-lg font-bold shadow-lg shadow-indigo-500/30">
+                            C
+                        </div>
+
+                        <span class="text-xl font-semibold tracking-tight">
+                            Connectify
+                        </span>
+                    </div>
+
+                    <h2 class="max-w-lg text-4xl font-bold leading-tight tracking-tight">
+                        Stay connected with the people who matter.
+                    </h2>
+
+                    <p class="mt-5 max-w-md text-base leading-7 text-slate-400">
+                        Message, call, video chat and share files from one simple place.
+                    </p>
+
+                </div>
+
+                <div class="relative mt-12">
+
+                    <div class="grid grid-cols-3 gap-3">
+
+                        <div class="rounded-2xl border border-slate-800 bg-slate-950/50 p-4 backdrop-blur">
+                            <p class="text-2xl font-bold">Chat</p>
+                            <p class="mt-1 text-xs text-slate-500">
+                                Real-time messaging
+                            </p>
+                        </div>
+
+                        <div class="rounded-2xl border border-slate-800 bg-slate-950/50 p-4 backdrop-blur">
+                            <p class="text-2xl font-bold">Call</p>
+                            <p class="mt-1 text-xs text-slate-500">
+                                Audio & video
+                            </p>
+                        </div>
+
+                        <div class="rounded-2xl border border-slate-800 bg-slate-950/50 p-4 backdrop-blur">
+                            <p class="text-2xl font-bold">Share</p>
+                            <p class="mt-1 text-xs text-slate-500">
+                                Files & media
+                            </p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Right: Registration -->
+            <div class="bg-slate-900 p-8 sm:p-12">
+
+                <div class="mx-auto max-w-md">
+
+                    <!-- Mobile logo -->
+                    <div class="mb-8 flex items-center gap-3 lg:hidden">
+
+                        <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-500 font-bold">
+                            C
+                        </div>
+
+                        <span class="text-lg font-semibold">
+                            Connectify
+                        </span>
+
+                    </div>
+
+
+                    <!-- Heading -->
+                    <div>
+                        <p class="text-sm font-medium text-indigo-400">
+                            Get started
+                        </p>
+
+                        <h1 class="mt-2 text-3xl font-bold tracking-tight text-white">
+                            Create your account
+                        </h1>
+
+                        <p class="mt-2 text-sm text-slate-400">
+                            Create an account and start connecting.
+                        </p>
+                    </div>
+
+
+                    <!-- Form -->
+                    <form method="post" class="mt-8 space-y-5">
+
+                        {% csrf_token %}
+
+                        {% if form.non_field_errors %}
+                        <div class="rounded-xl border border-red-900/50 bg-red-950/40 p-4 text-sm text-red-300">
+                            {{ form.non_field_errors }}
+                        </div>
+                        {% endif %}
+
+
+                        <!-- Name -->
+                        <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
+
+                            <div>
+                                <label for="{{ form.first_name.id_for_label }}"
+                                    class="mb-2 block text-sm font-medium text-slate-200">
+                                    First name
+                                </label>
+
+                                {{ form.first_name }}
+
+                                {% for error in form.first_name.errors %}
+                                <p class="mt-1.5 text-xs text-red-400">
+                                    {{ error }}
+                                </p>
+                                {% endfor %}
+                            </div>
+
+
+                            <div>
+                                <label for="{{ form.last_name.id_for_label }}"
+                                    class="mb-2 block text-sm font-medium text-slate-200">
+                                    Last name
+                                </label>
+
+                                {{ form.last_name }}
+
+                                {% for error in form.last_name.errors %}
+                                <p class="mt-1.5 text-xs text-red-400">
+                                    {{ error }}
+                                </p>
+                                {% endfor %}
+                            </div>
+
+                        </div>
+
+
+                        <!-- Email -->
+                        <div>
+
+                            <label for="{{ form.email.id_for_label }}"
+                                class="mb-2 block text-sm font-medium text-slate-200">
+                                Email address
+                            </label>
+
+                            {{ form.email }}
+
+                            {% for error in form.email.errors %}
+                            <p class="mt-1.5 text-xs text-red-400">
+                                {{ error }}
+                            </p>
+                            {% endfor %}
+
+                        </div>
+
+
+                        <!-- Password -->
+                        <div>
+
+                            <label for="{{ form.password.id_for_label }}"
+                                class="mb-2 block text-sm font-medium text-slate-200">
+                                Password
+                            </label>
+
+                            {{ form.password }}
+
+                            <p class="mt-2 text-xs text-slate-500">
+                                Use at least 8 characters.
+                            </p>
+
+                            {% for error in form.password.errors %}
+                            <p class="mt-1.5 text-xs text-red-400">
+                                {{ error }}
+                            </p>
+                            {% endfor %}
+
+                        </div>
+
+
+                        <!-- Password confirmation -->
+                        <div>
+
+                            <label for="{{ form.password_confirmation.id_for_label }}"
+                                class="mb-2 block text-sm font-medium text-slate-200">
+                                Confirm password
+                            </label>
+
+                            {{ form.password_confirmation }}
+
+                            {% for error in form.password_confirmation.errors %}
+                            <p class="mt-1.5 text-xs text-red-400">
+                                {{ error }}
+                            </p>
+                            {% endfor %}
+
+                        </div>
+
+
+                        <!-- Submit -->
+                        <button type="submit"
+                            class="group flex w-full items-center justify-center gap-2 rounded-xl bg-indigo-500 px-4 py-3.5 text-sm font-semibold text-white shadow-lg shadow-indigo-500/20 transition duration-200 hover:bg-indigo-400 hover:shadow-indigo-500/30 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2 focus:ring-offset-slate-900">
+                            Create account
+
+                            <span class="transition-transform duration-200 group-hover:translate-x-1">
+                                →
+                            </span>
+                        </button>
+
+                    </form>
+
+
+                    <!-- Login -->
+                    <p class="mt-8 text-center text-sm text-slate-500">
+                        Already have an account?
+
+                        <a href="{% url 'authentication:login' %}"
+                            class="font-medium text-indigo-400 transition hover:text-indigo-300">
+                            Sign in
+                        </a>
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
