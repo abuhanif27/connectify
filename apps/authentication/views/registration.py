@@ -3,13 +3,16 @@ from django.shortcuts import redirect, render
 from django.views import View
 
 from apps.authentication.forms import RegistrationForm
-from apps.authentication.services import register_user
+from apps.authentication.services.registration import register_user
 
 
 class RegisterView(View):
     template_name = "authentication/register.html"
 
     def get(self, request):
+        if request.user.is_authenticated:
+            return redirect("authentication:dashboard")
+
         form = RegistrationForm()
 
         return render(
@@ -19,6 +22,9 @@ class RegisterView(View):
         )
 
     def post(self, request):
+        if request.user.is_authenticated:
+            return redirect("authentication:dashboard")
+
         form = RegistrationForm(request.POST)
 
         if form.is_valid():
