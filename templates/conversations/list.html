@@ -12,38 +12,96 @@
             </h1>
 
             <p class="mt-2 text-gray-400">
-                Your conversations
+                Connect with people on Connectify.
             </p>
         </div>
 
-        <div class="space-y-3">
-            {% for conversation in conversations %}
-            <a href="{% url 'conversations:detail' conversation.id %}"
-                class="block rounded-xl border border-gray-800 bg-gray-900 p-5 transition hover:border-indigo-500 hover:bg-gray-800">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <h2 class="font-semibold">
-                            {{ conversation }}
-                        </h2>
+        <!-- Start Conversation -->
+        <section class="mb-10">
+            <div class="mb-4">
+                <h2 class="text-lg font-semibold">
+                    Start a conversation
+                </h2>
 
-                        <p class="mt-1 text-sm text-gray-400">
-                            {{ conversation.get_type_display }}
+                <p class="mt-1 text-sm text-gray-500">
+                    Choose someone to start chatting with.
+                </p>
+            </div>
+
+            <div class="space-y-3">
+                {% for user in users %}
+                <form method="post" action="{% url 'conversations:create' %}"
+                    class="flex items-center justify-between rounded-xl border border-gray-800 bg-gray-900 p-4">
+                    {% csrf_token %}
+
+                    <input type="hidden" name="user_id" value="{{ user.id }}">
+
+                    <div>
+                        <p class="font-medium">
+                            {% if user.get_full_name %}
+                            {{ user.get_full_name }}
+                            {% else %}
+                            {{ user.email }}
+                            {% endif %}
+                        </p>
+
+                        <p class="text-sm text-gray-500">
+                            {{ user.email }}
                         </p>
                     </div>
 
-                    <span class="text-gray-500">
-                        →
-                    </span>
+                    <button type="submit"
+                        class="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium transition hover:bg-indigo-500">
+                        Message
+                    </button>
+                </form>
+                {% empty %}
+                <div class="rounded-xl border border-gray-800 bg-gray-900 p-6 text-center">
+                    <p class="text-gray-400">
+                        No other users are available yet.
+                    </p>
                 </div>
-            </a>
-            {% empty %}
-            <div class="rounded-xl border border-gray-800 bg-gray-900 p-8 text-center">
-                <p class="text-gray-400">
-                    You don't have any conversations yet.
-                </p>
+                {% endfor %}
             </div>
-            {% endfor %}
-        </div>
+        </section>
+
+        <!-- Existing Conversations -->
+        <section>
+            <div class="mb-4">
+                <h2 class="text-lg font-semibold">
+                    Your conversations
+                </h2>
+            </div>
+
+            <div class="space-y-3">
+                {% for conversation in conversations %}
+                <a href="{% url 'conversations:detail' conversation.id %}"
+                    class="block rounded-xl border border-gray-800 bg-gray-900 p-5 transition hover:border-indigo-500 hover:bg-gray-800">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="font-semibold">
+                                {{ conversation }}
+                            </h3>
+
+                            <p class="mt-1 text-sm text-gray-400">
+                                {{ conversation.get_type_display }}
+                            </p>
+                        </div>
+
+                        <span class="text-gray-500">
+                            →
+                        </span>
+                    </div>
+                </a>
+                {% empty %}
+                <div class="rounded-xl border border-gray-800 bg-gray-900 p-8 text-center">
+                    <p class="text-gray-400">
+                        You don't have any conversations yet.
+                    </p>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
 
     </div>
 </div>
