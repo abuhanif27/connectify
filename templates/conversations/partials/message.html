@@ -1,0 +1,11 @@
+<div class="flex justify-end">
+    <div class="max-w-[75%] rounded-2xl bg-indigo-600 px-4 py-3">
+        <p class="text-sm text-white">
+            {{ message.content }}
+        </p>
+
+        <p class="mt-1 text-right text-xs text-indigo-200">
+            {{ message.created_at|date:"H:i" }}
+        </p>
+    </div>
+</div>
