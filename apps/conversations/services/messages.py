@@ -1,4 +1,5 @@
 from django.db import transaction
+from django.utils import timezone
 
 from apps.accounts.models import User
 from apps.conversations.models import Conversation, Message
@@ -25,8 +26,16 @@ def send_message(
             "Only conversation participants can send messages."
         )
 
-    return Message.objects.create(
+    message = Message.objects.create(
         conversation=conversation,
         sender=sender,
         content=content,
     )
+
+    Conversation.objects.filter(
+        pk=conversation.pk,
+    ).update(
+        updated_at=timezone.now(),
+    )
+
+    return message

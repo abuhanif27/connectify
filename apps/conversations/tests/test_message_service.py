@@ -114,3 +114,23 @@ def test_non_participant_cannot_send_message(conversation, users):
         )
 
     assert Message.objects.count() == 0
+
+
+@pytest.mark.django_db
+def test_sending_message_updates_conversation_activity(
+    conversation,
+    users,
+):
+    alice, _, _ = users
+
+    old_updated_at = conversation.updated_at
+
+    send_message(
+        conversation=conversation,
+        sender=alice,
+        content="Hello Bob!",
+    )
+
+    conversation.refresh_from_db()
+
+    assert conversation.updated_at > old_updated_at
