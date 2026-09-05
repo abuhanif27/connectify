@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}Messages · Connectify{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-950">
+    <div class="mx-auto max-w-4xl px-6 py-10">
+
+        <div class="mb-8">
+            <h1 class="text-3xl font-bold">
+                Messages
+            </h1>
+
+            <p class="mt-2 text-gray-400">
+                Your conversations
+            </p>
+        </div>
+
+        <div class="space-y-3">
+            {% for conversation in conversations %}
+            <a href="{% url 'conversations:detail' conversation.id %}"
+                class="block rounded-xl border border-gray-800 bg-gray-900 p-5 transition hover:border-indigo-500 hover:bg-gray-800">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h2 class="font-semibold">
+                            {{ conversation }}
+                        </h2>
+
+                        <p class="mt-1 text-sm text-gray-400">
+                            {{ conversation.get_type_display }}
+                        </p>
+                    </div>
+
+                    <span class="text-gray-500">
+                        →
+                    </span>
+                </div>
+            </a>
+            {% empty %}
+            <div class="rounded-xl border border-gray-800 bg-gray-900 p-8 text-center">
+                <p class="text-gray-400">
+                    You don't have any conversations yet.
+                </p>
+            </div>
+            {% endfor %}
+        </div>
+
+    </div>
+</div>
+{% endblock %}

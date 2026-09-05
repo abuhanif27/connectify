@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}Conversation · Connectify{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-950">
+    <div class="mx-auto flex min-h-screen max-w-4xl flex-col">
+
+        <header class="border-b border-gray-800 px-6 py-5">
+            <a href="{% url 'conversations:list' %}" class="text-sm text-gray-400 hover:text-white">
+                ← Back to messages
+            </a>
+
+            <h1 class="mt-4 text-2xl font-bold">
+                {{ conversation }}
+            </h1>
+        </header>
+
+        <main class="flex-1 space-y-4 overflow-y-auto px-6 py-6">
+            {% for message in messages %}
+            <div>
+                <p class="text-sm font-medium text-indigo-400">
+                    {{ message.sender.email }}
+                </p>
+
+                <p class="mt-1 text-gray-200">
+                    {{ message.content }}
+                </p>
+
+                <p class="mt-1 text-xs text-gray-500">
+                    {{ message.created_at }}
+                </p>
+            </div>
+            {% empty %}
+            <p class="text-center text-gray-500">
+                No messages yet.
+            </p>
+            {% endfor %}
+        </main>
+
+    </div>
+</div>
+{% endblock %}
