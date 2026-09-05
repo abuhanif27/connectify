@@ -56,20 +56,19 @@
             {% endif %}
 
             {% empty %}
-
             <div id="empty-state" class="flex h-full items-center justify-center">
                 <p class="text-gray-500">
                     No messages yet. Start the conversation.
                 </p>
             </div>
-
             {% endfor %}
         </main>
 
         <!-- Message Form -->
         <footer class="border-t border-gray-800 p-6">
             <form hx-post="{% url 'conversations:send_message' conversation.id %}" hx-target="#messages"
-                hx-swap="beforeend" hx-on::after-request="this.reset()" class="flex gap-3">
+                hx-swap="beforeend" hx-on::after-request="this.reset()"
+                hx-on::after-swap="document.getElementById('empty-state')?.remove()" class="flex gap-3">
                 {% csrf_token %}
 
                 <input type="text" name="content" placeholder="Write a message..." autocomplete="off"
