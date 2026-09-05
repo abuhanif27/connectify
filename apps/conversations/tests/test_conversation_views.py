@@ -160,3 +160,36 @@ def test_non_participant_cannot_open_conversation(
     response = client.get(url)
 
     assert response.status_code == 404
+
+
+@pytest.mark.django_db
+def test_conversation_list_contains_other_active_users(
+    client,
+    users,
+):
+    alice, bob, charlie = users
+
+    client.force_login(alice)
+
+    url = reverse("conversations:list")
+    response = client.get(url)
+
+    assert response.status_code == 200
+    assert bob in response.context["users"]
+    assert charlie in response.context["users"]
+
+
+@pytest.mark.django_db
+def test_conversation_list_does_not_contain_current_user(
+    client,
+    users,
+):
+    alice, bob, _ = users
+
+    client.force_login(alice)
+
+    url = reverse("conversations:list")
+    response = client.get(url)
+
+    assert alice not in response.context["users"]
+    assert bob in response.context["users"]
